@@ -76,3 +76,21 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 BattleTank/Content/StarterContent/
+game executions/WindowsNoEditor/BattleTank/Content/Paks/BattleTank-WindowsNoEditor.pak
+game executions/WindowsNoEditor/BattleTank/Saved/Config/CrashReportClient/UE4CC-Windows-F6A722D84CFC0BB1E09CAD9E67946A06/CrashReportClient.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/CrashReportClient/UE4CC-Windows-F8340A65490C2A87C0DFAF8CD446CC58/CrashReportClient.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Compat.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/DeviceProfiles.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/EditorPerProjectUserSettings.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Engine.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Game.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/GameUserSettings.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Hardware.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Input.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Lightmass.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/OculusVR.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Paper2D.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/PhysXVehicles.ini
+game executions/WindowsNoEditor/BattleTank/Saved/Config/WindowsNoEditor/Scalability.ini
+game executions/WindowsNoEditor/Engine/Saved/Config/WindowsNoEditor/Manifest.ini
+game executions/WindowsNoEditor/Manifest_NonUFSFiles_Win64.txt
