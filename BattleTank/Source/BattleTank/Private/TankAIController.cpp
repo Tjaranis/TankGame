@@ -8,13 +8,6 @@ ATank* ATankAIController::GetControllerTank() const
 	return Cast<ATank>(GetPawn());
 }
 
-// Called every frame
-void ATankAIController::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	AimTowardsCrosshair();
-	UE_LOG(LogTemp, Warning, TEXT("AIController not possessing tank"));
-}
 
 void ATankAIController::BeginPlay()
 {
@@ -49,24 +42,6 @@ ATank * ATankAIController::GetPlayerTank() const
 	return Cast<ATank>(PlayerTank);
 }
 
-void ATankAIController::AimTowardsCrosshair()
-{
-	if (!GetControllerTank()) { return; }
-	
-	FVector HitLocation;//out parameter
-	if (GetSightRayHitLocation(HitLocation)) { //going to line trace
-		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
-		//aim at point
-	}
-
-}
-//if it hits landscape return true
-bool ATankAIController::GetSightRayHitLocation(FVector& HitLocation) const
-{
-	
-	HitLocation=FVector(1.0);//out parameter
-	return true;
-}
 
 
 

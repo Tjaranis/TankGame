@@ -25,3 +25,35 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing: %s"), *(ControlledTank->GetName()));
 	}
 }
+
+// Called every frame
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AimTowardsCrosshair();
+	//UE_LOG(LogTemp, Warning, TEXT("PController ticktick"));
+}
+//if it hits landscape return true
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+{
+	//find the crosshair position
+	int32 ViewportSizeX, ViewportSizeY;
+
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
+	auto ScreenLocation = FVector2D(ViewportSizeX*CrossHairXLocation, ViewportSizeY*CrossHairYLocation);
+	UE_LOG(LogTemp, Warning, TEXT("getsightmethod: %s"), *ScreenLocation.ToString());
+	HitLocation = FVector(1.0);//out parameter
+	return true;
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControllerTank()) { return; }
+
+	FVector HitLocation;//out parameter
+	if (GetSightRayHitLocation(HitLocation)) { //going to line trace
+		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *HitLocation.ToString());
+		//aim at point
+	}
+
+}

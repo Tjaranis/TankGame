@@ -17,12 +17,7 @@ class BATTLETANK_API ATankAIController : public AAIController
 	
 public:
 	ATank * GetControllerTank() const;
-	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 	ATank * GetPlayerTank() const;
 	
-private:
-	//aim barrel of tank on crosshair
-	void AimTowardsCrosshair();
-	bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
