@@ -23,6 +23,7 @@ public:
 private:
 	//aim barrel of tank on crosshair
 	void AimTowardsCrosshair();
+	bool GetLookLocation(FVector2D ScreenLocation, FVector & LookDirection) const;
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	UPROPERTY(editanywhere)
 		float CrossHairXLocation = 0.5;
