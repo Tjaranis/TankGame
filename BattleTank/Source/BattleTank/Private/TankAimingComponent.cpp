@@ -34,12 +34,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	//Turn out velocity to unit vector
 	
 	bool SuggestProjectileHit = UGameplayStatics::SuggestProjectileVelocity(
-		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace
+		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.f, 0, ESuggestProjVelocityTraceOption::DoNotTrace
 	);
-	
+
+	auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+	MoveBarrel(AimDirection);
 	if (SuggestProjectileHit) {
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrel(AimDirection);
+		
 		/*
 		auto TankName = GetOwner()->GetName();
 		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *TankName, *AimDirection.ToString());
@@ -67,6 +68,6 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	/*
 	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator %s"), *AimAsRotator.ToString());
 	*/
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotation.Pitch);
 }
 
