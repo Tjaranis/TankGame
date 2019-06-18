@@ -39,7 +39,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 	MoveBarrel(AimDirection);
 	if (SuggestProjectileHit) {
-		
 		/*
 		auto TankName = GetOwner()->GetName();
 		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *TankName, *AimDirection.ToString());
@@ -51,7 +50,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: failed aim:"), Time);
 	}
-
+	
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
@@ -68,6 +67,7 @@ void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 {
+	
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotation = AimAsRotator - BarrelRotation;
@@ -75,6 +75,9 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator %s"), *AimAsRotator.ToString());
 	*/
 	Barrel->Elevate(DeltaRotation.Pitch);
-	Turret->Rotate(DeltaRotation.Yaw);
+	if (FMath::Abs(DeltaRotation.Yaw) < 180) {
+		Turret->Rotate(DeltaRotation.Yaw);
+	}
+	else{ Turret->Rotate(-DeltaRotation.Yaw); }
 }
 
