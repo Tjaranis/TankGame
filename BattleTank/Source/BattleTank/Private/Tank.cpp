@@ -2,11 +2,14 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
-#include "Engine/World.h" //needed for UE_LOG getworld only
+//#include "Engine/World.h" //needed for UE_LOG getworld only
+#include "TankBarrel.h"
+#include "Projectile.h"
 
 void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurretReference(UTankTurret * TurretToSet)
@@ -14,12 +17,6 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet)
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
-//fire projectile 1.
-void ATank::Fire()
-{
-	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires:"), Time);
-}
 
 // Sets default values
 ATank::ATank()
@@ -47,4 +44,21 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation) {
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+}
+
+//fire projectile 1.
+void ATank::Fire()
+{
+	/*
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires:"), Time);
+	*/
+
+	if (!Barrel) return;
+	//spawn a projectile at the socket location of barrel
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile")));
+
+	Projectile->LaunchProjectile(LaunchSpeed);
 }
