@@ -45,6 +45,14 @@ void ATankAIController::Tick(float DeltaTime)
 		//aim at player
 		GetControllerTank()->AimAt(GetPlayerTank()->GetActorLocation());
 		//fire if rdy
+
+		if (GetControllerTank()->AimingAtTarget()) {
+			auto Time = GetWorld()->GetTimeSeconds();
+			UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in AI component:"), Time);
+			
+			GetControllerTank()->Fire();
+		}
+		
 	}
 	
 
@@ -52,7 +60,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 ATank * ATankAIController::GetPlayerTank() const
 {
-	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn(); //player need to be spawned at load of tank or it returns null
 	if (!PlayerTank) { return nullptr; }
 	return Cast<ATank>(PlayerTank);
 }

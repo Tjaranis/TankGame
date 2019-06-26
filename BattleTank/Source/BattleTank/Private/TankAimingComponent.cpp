@@ -13,7 +13,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
+	if (!Barrel) { return; }
 	// ...
 }
 
@@ -23,34 +23,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	auto BarrelLocation = Barrel->GetComponentLocation();
 	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *OurTankName, *HitLocation.ToString(), *BarrelLocation.ToString());
 	*/
-	if (!Barrel) { return; }
-
-	FVector OutLaunchVelocity(0,0,0);
-	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-
-	//Calculate the out launch velocity
-
-	//Turn out velocity to unit vector
-	
-	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
-		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.f, 0, ESuggestProjVelocityTraceOption::DoNotTrace
-	);
-
-	auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-	MoveBarrel(AimDirection);
-	if (bHaveAimSolution) {
-		/*
-		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *TankName, *AimDirection.ToString());
-		
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: succeed aim:"), Time);*/
-	}/*
-	else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: failed aim:"), Time);
-	}*/
-	
+	MoveBarrel(AimDirection(HitLocation, LaunchSpeed));
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
@@ -63,6 +36,18 @@ void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 {
 	if (!TurretToSet) return;
 	Turret = TurretToSet;
+}
+
+FVector UTankAimingComponent::AimDirection(FVector HitLocation, float LaunchSpeed) {
+	FVector OutLaunchVelocity(0, 0, 0);
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.f, 0, ESuggestProjVelocityTraceOption::DoNotTrace
+	);
+	
+	FVector LaunchDirectionVector = OutLaunchVelocity.GetSafeNormal();
+	return LaunchDirectionVector;
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
@@ -79,5 +64,14 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 		Turret->Rotate(DeltaRotation.Yaw);
 	}
 	else{ Turret->Rotate(-DeltaRotation.Yaw); }
+
+	if ((DeltaRotation.Pitch > -AccuracySpread && DeltaRotation.Pitch < AccuracySpread) 
+		|| (DeltaRotation.Yaw > -AccuracySpread && DeltaRotation.Yaw < AccuracySpread)) {
+		BarrelAlignedWithTarget = true;
+
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in aiming component:"), Time);
+	}else { BarrelAlignedWithTarget = false; }
+
 }
 

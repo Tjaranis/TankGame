@@ -16,6 +16,7 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 	void AimAt(FVector HitLocation);
+	bool AimingAtTarget();
 
 	UFUNCTION(BlueprintCallable, Category=Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
@@ -47,4 +48,10 @@ private:
 
 	//local barrel reference for spawning point projectile
 	UTankBarrel* Barrel = nullptr;
+
+	//rof of fire
+	UPROPERTY(EditAnywhere, Category = Firing)
+		float ReloadTimeSecond=3;
+	double LastFired = 0;
+	bool BarrelAlignedToTarget = false;
 };

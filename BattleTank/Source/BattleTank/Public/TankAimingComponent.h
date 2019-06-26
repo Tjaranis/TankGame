@@ -26,7 +26,11 @@ public:
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 	void SetTurretReference(UTankTurret * TurretToSet);
+	FVector AimDirection(FVector HitLocation, float LaunchSpeed);
 	void MoveBarrel(FVector AimDirection);
+	bool BarrelAlignedWithTarget = false;
+	float AccuracySpread = 0.01; //magic number need redoing in the function to be % of aim.
+
 	
 private:
 	UTankBarrel * Barrel = nullptr;
