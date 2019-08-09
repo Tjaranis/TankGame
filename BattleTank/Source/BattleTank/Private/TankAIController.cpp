@@ -47,8 +47,8 @@ void ATankAIController::Tick(float DeltaTime)
 		//fire if rdy
 
 		if (GetControllerTank()->AimingAtTarget()) {
-			auto Time = GetWorld()->GetTimeSeconds();
-			UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in AI component:"), Time);
+			//auto Time = GetWorld()->GetTimeSeconds();
+			//UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in AI component:"), Time);
 			
 			GetControllerTank()->Fire();
 		}

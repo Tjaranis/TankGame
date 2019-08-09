@@ -69,8 +69,8 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 		|| (DeltaRotation.Yaw > -AccuracySpread && DeltaRotation.Yaw < AccuracySpread)) {
 		BarrelAlignedWithTarget = true;
 
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in aiming component:"), Time);
+		//auto Time = GetWorld()->GetTimeSeconds();
+		//UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in aiming component:"), Time);
 	}else { BarrelAlignedWithTarget = false; }
 
 }

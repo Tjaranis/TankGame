@@ -41,7 +41,7 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 100000; //sensible starting value of 1000m/s
+		float LaunchSpeed = 10000; //sensible starting value of 1000m/s
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
@@ -51,7 +51,7 @@ private:
 
 	//rof of fire
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float ReloadTimeSecond=3;
+		float ReloadTimeSecond=20;
 	double LastFired = 0;
 	bool BarrelAlignedToTarget = false;
 };

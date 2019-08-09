@@ -31,8 +31,8 @@ void AProjectile::Tick(float DeltaTime)
 }
 
 void AProjectile::LaunchProjectile(float launchspeed) {
-	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f: projectile fires speed: %f"), Time, launchspeed);
+	//auto Time = GetWorld()->GetTimeSeconds();
+	//UE_LOG(LogTemp, Warning, TEXT("%f: projectile fires speed: %f"), Time, launchspeed);
 
 	ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector*launchspeed);
 	ProjectileMovement->Activate();
