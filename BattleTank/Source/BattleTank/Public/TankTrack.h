@@ -32,6 +32,11 @@ public:
 		float Accelleration = 2000;
 	
 	float TankMass;
-	
+
 	UPrimitiveComponent *TankRoot;
+
+	/*
+	UPROPERTY(EditDefaultsOnly, Category = Stats)
+		float MaxDegreesTankTips = 45;
+	*/
 };
