@@ -8,9 +8,10 @@ void UTankTrack::SetThrottle(float Throttle) {
 	{
 		Ini();
 	}
-	//auto _name = GetName();
-	////remember to clamp values to avoid changing beyound max
-	//UE_LOG(LogTemp, Warning, TEXT("%s this track throttle; %f"), *_name, Throttle);
+	/*auto _name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s this track throttle; %f"), *_name, Throttle);
+	*/
+	FMath::Clamp(Throttle, 0.0f, 1.0f);
 	auto ForceAppliedd = GetForwardVector() * Throttle * Maxforce;
 	auto ForceLocation = GetComponentLocation();
 	TankRoot->AddForceAtLocation(ForceAppliedd, ForceLocation);
