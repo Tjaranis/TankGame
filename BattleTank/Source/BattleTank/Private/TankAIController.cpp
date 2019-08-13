@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
-#include "Engine/World.h"
+//#include "Engine/World.h"
+#include "Runtime/Engine/Classes/GameFramework/Actor.h"
 #include "Tank.h"
 
 ATank* ATankAIController::GetControllerTank() const
@@ -15,8 +16,8 @@ void ATankAIController::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("test"));
 	auto ControlledTank = GetControllerTank();
-	auto PlayerTank = GetPlayerTank();
-
+	PlayerTank = GetPlayerTank();
+	
 	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AIController not possessing tank"));
@@ -40,19 +41,13 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (GetPlayerTank()) {
-		//move towards player
-		//aim at player
-		GetControllerTank()->AimAt(GetPlayerTank()->GetActorLocation());
-		//fire if rdy
-		
-		if (GetControllerTank()->AimingAtTarget()) {
+	if (PlayerTank) {
+
+		MoveToActor(PlayerTank, AcceptanceRadius);
+		GetControllerTank()->AimAt(PlayerTank->GetActorLocation());
 			//auto Time = GetWorld()->GetTimeSeconds();
 			//UE_LOG(LogTemp, Warning, TEXT("%f: barrel aligned in AI component:"), Time);
-			
-			GetControllerTank()->Fire();
-		}
-		
+		GetControllerTank()->Fire();
 	}
 	
 
@@ -63,6 +58,7 @@ ATank * ATankAIController::GetPlayerTank() const
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn(); //player need to be spawned at load of tank or it returns null
 	if (!PlayerTank) { return nullptr; }
 	return Cast<ATank>(PlayerTank);
+	
 }
 
 

@@ -23,4 +23,8 @@ public:
 	virtual void BeginPlay() override;
 	ATank * GetPlayerTank() const;
 	
+private:
+	ATank *PlayerTank;
+	//how close wil the ai tank move to the player in cm
+	float AcceptanceRadius = 3000;
 };
