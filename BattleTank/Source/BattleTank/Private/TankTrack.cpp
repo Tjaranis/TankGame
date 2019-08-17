@@ -11,8 +11,8 @@ void UTankTrack::SetThrottle(float Throttle) {
 	/*auto _name = GetName();
 	UE_LOG(LogTemp, Warning, TEXT("%s this track throttle; %f"), *_name, Throttle);
 	*/
-	FMath::Clamp(Throttle, 0.0f, 1.0f);
-	auto ForceAppliedd = GetForwardVector() * Throttle * Maxforce;
+	auto ClampThrottle= FMath::Clamp(Throttle, -1.0f, 1.0f);
+	auto ForceAppliedd = GetForwardVector() * ClampThrottle * Maxforce;
 	auto ForceLocation = GetComponentLocation();
 	TankRoot->AddForceAtLocation(ForceAppliedd, ForceLocation);
 

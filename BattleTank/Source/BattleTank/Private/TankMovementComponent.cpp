@@ -20,12 +20,24 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 {
 	//no need to call super as we are changing functionality; and need the input gained here.
 
+	
+	auto _TankForwardDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto _MoveDirectionVector = MoveVelocity.GetSafeNormal();
+	auto _ForwordMovement = FVector::DotProduct(_TankForwardDirection, _MoveDirectionVector);
+	auto _Rotation = FVector::CrossProduct(_TankForwardDirection, _MoveDirectionVector).Z;
+
+	IntendMoveForward(_ForwordMovement);
+	IntendMoveLeft(_Rotation);
+
+	/*
 	auto TankName = GetOwner()->GetName();
-	auto _MoveVelocity = MoveVelocity.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s vectoring to ; %s"), *TankName,*_MoveVelocity);
+	auto MoveDirectionVector = MoveVelocity.GetSafeNormal().ToString();
+	*/
+	UE_LOG(LogTemp, Warning, TEXT("%s ForwardDirection and forward movement ; %f"), *_TankForwardDirection.ToString(), _ForwordMovement);
+	UE_LOG(LogTemp, Warning, TEXT("%s ForwardDirection and rotation ; %f"), *_TankForwardDirection.ToString(), _Rotation);
 }
 
-void UTankMovementComponent::Initialise(UTankTrack *LeftTrackToSet, UTankTrack *RightTrackToSet)
+void UTankMovementComponent::SetTrack(UTankTrack *LeftTrackToSet, UTankTrack *RightTrackToSet)
 {
 	if (!LeftTrackToSet || !RightTrackToSet) {
 		UE_LOG(LogTemp, Warning, TEXT("LeftTrackToSet or RightTrackToSet unexpected void ref; "));
@@ -35,5 +47,12 @@ void UTankMovementComponent::Initialise(UTankTrack *LeftTrackToSet, UTankTrack *
 		LeftTrack = LeftTrackToSet;
 		RightTrack = RightTrackToSet;
 	}
+
+}
+
+// Called when the game starts or when spawned
+void UTankMovementComponent::BeginPlay()
+{
+	Super::BeginPlay();
 
 }

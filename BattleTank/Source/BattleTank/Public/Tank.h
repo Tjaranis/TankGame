@@ -55,7 +55,7 @@ private:
 
 	//rof of fire
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float ReloadTimeSecond=20;
+		float ReloadTimeSecond=10;
 	double LastFired = 0;
 	bool BarrelAlignedToTarget = false;
 };
