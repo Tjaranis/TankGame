@@ -26,10 +26,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void IntendMoveLeft(float input);
 	//TODO check best protection
-	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 
 private:
 	virtual void BeginPlay() override;
+	//called from pathfinding by the ai controllers
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 
 	UTankTrack *LeftTrack=nullptr;
 	UTankTrack *RightTrack= nullptr;

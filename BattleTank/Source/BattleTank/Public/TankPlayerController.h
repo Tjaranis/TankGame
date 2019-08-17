@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "TankPlayerController.generated.h"
 
+
 class ATank;
 /**
  * 
@@ -32,4 +33,9 @@ private:
 	UPROPERTY(editanywhere) 
 		float LineTraceRange = 1000000;
 	FVector2D ScreenLocation;
+	
+
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const;
 };
