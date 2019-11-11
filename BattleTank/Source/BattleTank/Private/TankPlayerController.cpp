@@ -67,11 +67,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	return false;
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return nullptr;
-}
-
 bool ATankPlayerController::GetLookLocation(FVector2D ScreenLocation, FVector& LookDirection) const {
 	FVector WorldLocation;
 	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
